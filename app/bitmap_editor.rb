@@ -13,7 +13,8 @@ class BitmapEditor
         case cmd
         when 'I'
           check_params input, 2
-          init_image *input
+          # pass the converted integers into the function
+          init_image *(input.map &:to_i)
         when 'C'
           check_params input, 0
           clear_image
@@ -37,11 +38,17 @@ class BitmapEditor
   private
 
     def init_image(n, m)
-
+      if m.positive? && n.positive?
+        @m = m
+        @n = n
+        clear_image
+      else
+        raise_arg_error "M and N both need to be positive"
+      end
     end
 
     def clear_image
-
+      @image = Array.new(@n) { Array.new(@m, WHITE_COLOR) }
     end
 
     def exit_console
@@ -61,6 +68,11 @@ X - Terminate the session"
     end
 
     def check_params(input, n)
-      raise ArgumentError, "wrong number of arguments" unless input.length == n
+       raise_arg_error "wrong number of arguments" unless input.length == n
     end
+
+end
+
+def raise_arg_error(msg)
+  raise ArgumentError, msg
 end
