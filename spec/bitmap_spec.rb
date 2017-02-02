@@ -21,5 +21,24 @@ describe Bitmap do
     end
   end
 
-  
+  describe '#set_pixel' do
+    context 'with good arguments' do
+      it do
+        expect(@bitmap.get_pixel(1, 1)).to eq 'O'
+        @bitmap.set_pixel(1, 1, 'C')
+        expect(@bitmap.get_pixel(1, 1)).to eq 'C'
+      end
+    end
+  end
+
+  describe '#clear' do
+    context 'clears a colored board' do
+      it do
+        @bitmap.set_pixel(1, 1, 'C')
+        @bitmap.clear
+        expect(@bitmap.image).to eq Bitmap.new(WIDTH, HEIGHT).image
+      end
+    end
+  end
+
 end
