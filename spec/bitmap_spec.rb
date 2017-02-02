@@ -52,13 +52,29 @@ describe Bitmap do
   end
 
   describe '#set_column' do
-    context 'with good argumetns' do
+    context 'with good arguments' do
       it do
         @bitmap.set_column(1, 1, 5, 'C')
         (1..5).each do |y|
           expect(@bitmap.get_pixel(1, y)).to eq('C')
         end
       end
+    end
+  end
+
+  describe '#set_row' do
+    context 'with good arguments' do
+      it do
+        @bitmap.set_row(1, 5, 1, 'C')
+        (1..5).each do |x|
+          expect(@bitmap.get_pixel(x, 1)).to eq('C')
+        end
+      end
+    end
+  end
+
+  describe '#show' do
+    it do
     end
   end
 
