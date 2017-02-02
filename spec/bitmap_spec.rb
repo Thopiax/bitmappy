@@ -60,6 +60,11 @@ describe Bitmap do
         end
       end
     end
+
+    context 'with bad arguments' do
+      it { expect { @bitmap.set_column(-1, 5, 1, 'C') }.to raise_error ArgumentError }
+    end
+
   end
 
   describe '#set_row' do
@@ -71,6 +76,11 @@ describe Bitmap do
         end
       end
     end
+
+    context 'with bad arguments' do
+      it { expect { @bitmap.set_row(-1, 5, 1, 'C') }.to raise_error ArgumentError }
+    end
+
   end
 
   describe '#show' do
