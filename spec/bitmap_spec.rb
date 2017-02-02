@@ -29,6 +29,21 @@ describe Bitmap do
         expect(@bitmap.get_pixel(1, 1)).to eq 'C'
       end
     end
+
+    context 'with out of range indeces' do
+      it do
+        expect { @bitmap.set_pixel(1, 260, 'C') }.to raise_error ArgumentError
+        expect { @bitmap.set_pixel(-1, 5, 'C') }.to raise_error ArgumentError
+      end
+    end
+
+    context 'with invalid color' do
+      it do
+        expect { @bitmap.set_pixel(1, 1, 'c') }.to raise_error ArgumentError
+        expect { @bitmap.set_pixel(1, 1, 5) }.to raise_error ArgumentError
+      end
+    end
+
   end
 
   describe '#clear' do
