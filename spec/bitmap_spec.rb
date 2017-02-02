@@ -31,19 +31,14 @@ describe Bitmap do
     end
 
     context 'with out of range indeces' do
-      it do
-        expect { @bitmap.set_pixel(1, 260, 'C') }.to raise_error ArgumentError
-        expect { @bitmap.set_pixel(-1, 5, 'C') }.to raise_error ArgumentError
-      end
+      it { expect { @bitmap.set_pixel(1, 260, 'C') }.to raise_error ArgumentError }
+      it { expect { @bitmap.set_pixel(-1, 5, 'C') }.to raise_error ArgumentError }
     end
 
     context 'with invalid color' do
-      it do
-        expect { @bitmap.set_pixel(1, 1, 'c') }.to raise_error ArgumentError
-        expect { @bitmap.set_pixel(1, 1, 5) }.to raise_error ArgumentError
-      end
+      it { expect { @bitmap.set_pixel(1, 1, 'c') }.to raise_error ArgumentError }
+      it { expect { @bitmap.set_pixel(1, 1, 5) }.to raise_error ArgumentError }
     end
-
   end
 
   describe '#clear' do
@@ -52,6 +47,17 @@ describe Bitmap do
         @bitmap.set_pixel(1, 1, 'C')
         @bitmap.clear
         expect(@bitmap.image).to eq Bitmap.new(WIDTH, HEIGHT).image
+      end
+    end
+  end
+
+  describe '#set_column' do
+    context 'with good argumetns' do
+      it do
+        @bitmap.set_column(1, 1, 5, 'C')
+        (1..5).each do |y|
+          expect(@bitmap.get_pixel(1, y)).to eq('C')
+        end
       end
     end
   end

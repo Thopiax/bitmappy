@@ -27,7 +27,7 @@ class Bitmap
   end
 
   def set_pixel(x, y, c)
-    raise_arg_error "invalid color" unless COLOR_RANGE.member?(c)
+    raise_arg_error 'invalid color' unless COLOR_RANGE.member?(c)
     @image[get_index(y)][get_index(x)] = c
   end
 
