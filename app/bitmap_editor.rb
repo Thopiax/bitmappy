@@ -5,14 +5,21 @@ class BitmapEditor
     puts 'type ? for help'
     while @running
       print '> '
-      input = gets.chomp
-      case input
-        when '?'
-          show_help
-        when 'X'
-          exit_console
-        else
-          puts 'unrecognised command :('
+      input = gets.chomp.split
+      cmd = input.shift
+      case cmd
+      when 'I'
+      when 'C'
+      when 'L'
+      when 'V'
+      when 'H'
+      when 'S'
+      when '?'
+        show_help
+      when 'X'
+        exit_console
+      else
+        puts 'unrecognised command :('
       end
     end
   end
