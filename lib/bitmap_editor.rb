@@ -12,39 +12,30 @@ class BitmapEditor
       begin
         case cmd
         when 'I'
-          check_params input, 2
-          # pass the converted integers into the function
-          @image = Bitmap.new *(input.map &:to_i)
+          @image = Bitmap.new(*get_params(input, 2))
         when 'C'
           check_params input, 0
           @image.clear
         when 'L'
-          check_params input, 3
-          c = input.pop
-          x, y = *(input.map &:to_i)
-          @image.set_pixel(x, y, c)
+          @image.set_pixel(*get_params(input, 3))
         when 'V'
-          check_params input, 4
-          c = input.pop
-          x, v1, v2 = *(input.map &:to_i)
-          @image.set_column(x, v1, v2, c)
+          @image.set_column(*get_params(input, 4))
         when 'H'
-          check_params input, 4
-          c = input.pop
-          h1, h2, y = *(input.map &:to_i)
-          @image.set_row(h1, h2, y, c)
+          @image.set_row(*get_params(input, 4))
         when 'S'
           check_params input, 0
           @image.show
         when '?'
+          check_params input, 0
           show_help
         when 'X'
+          check_params input, 0
           exit_console
         else
           puts 'unrecognised command :('
         end
       rescue ArgumentError => e
-        "invalid command: #{e}"
+        puts "invalid command: #{e}"
       end
     end
   end
@@ -65,5 +56,14 @@ V X Y1 Y2 C - Draw a vertical segment of colour C in column X between rows Y1 an
 H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).
 S - Show the contents of the current image
 X - Terminate the session"
+  end
+
+  def get_params(input, param_count)
+    check_params(input, param_count)
+    # guard cases for painting the image
+    c = input.pop if param_count > 2
+    params = input.map &:to_i
+    params.push(c) if param_count > 2
+    params
   end
 end

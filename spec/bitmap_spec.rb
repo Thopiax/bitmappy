@@ -74,7 +74,6 @@ describe Bitmap do
         end
       end
     end
-
   end
 
   describe '#set_row' do
@@ -100,12 +99,10 @@ describe Bitmap do
         end
       end
     end
-
   end
 
   describe '#show' do
     it do
     end
   end
-
 end
