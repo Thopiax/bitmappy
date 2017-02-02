@@ -66,6 +66,15 @@ describe Bitmap do
       it { expect { @bitmap.set_column(1, 5, -1, 'C') }.to raise_error ArgumentError }
     end
 
+    context 'with order reversed' do
+      it do
+        @bitmap.set_column(1, 5, 1, 'C')
+        (1..5).each do |y|
+          expect(@bitmap.get_pixel(1, y)).to eq('C')
+        end
+      end
+    end
+
   end
 
   describe '#set_row' do
