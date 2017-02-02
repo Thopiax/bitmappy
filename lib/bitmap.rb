@@ -3,7 +3,7 @@ require_relative 'util'
 
 class Bitmap
   WHITE_COLOR = 'O'
-  # COLOUR_RANGE = 'A'..'Z'
+  COLOR_RANGE = 'A'..'Z'
 
   attr_reader :image, :width, :height
 
@@ -27,6 +27,7 @@ class Bitmap
   end
 
   def set_pixel(x, y, c)
+    raise_arg_error "invalid color" unless COLOR_RANGE.member?(c)
     @image[get_index(y)][get_index(x)] = c
   end
 
