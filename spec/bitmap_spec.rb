@@ -63,6 +63,7 @@ describe Bitmap do
 
     context 'with bad arguments' do
       it { expect { @bitmap.set_column(-1, 5, 1, 'C') }.to raise_error ArgumentError }
+      it { expect { @bitmap.set_column(1, 5, -1, 'C') }.to raise_error ArgumentError }
     end
 
   end
@@ -77,8 +78,18 @@ describe Bitmap do
       end
     end
 
-    context 'with bad arguments' do
+    context 'with out of bound indeces' do
       it { expect { @bitmap.set_row(-1, 5, 1, 'C') }.to raise_error ArgumentError }
+      it { expect { @bitmap.set_row(1, 5, -1, 'C') }.to raise_error ArgumentError }
+    end
+
+    context 'with order reversed' do
+      it do
+        @bitmap.set_row(5, 1, 1, 'C')
+        (1..5).each do |x|
+          expect(@bitmap.get_pixel(x, 1)).to eq('C')
+        end
+      end
     end
 
   end

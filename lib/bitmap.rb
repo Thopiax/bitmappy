@@ -32,13 +32,15 @@ class Bitmap
   end
 
   def set_column(x, v1, v2, c)
-    (v1..v2).each do |y|
+    range = v1 > v2 ? v2..v1 : v1..v2
+    range.each do |y|
       set_pixel(x, y, c)
     end
   end
 
   def set_row(h1, h2, y, c)
-    (h1..h2).each do |x|
+    range = h1 > h2 ? h2..h1 : h1..h2
+    range.each do |x|
       set_pixel(x, y, c)
     end
   end
