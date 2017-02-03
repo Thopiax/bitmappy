@@ -5,7 +5,6 @@ WIDTH  = 5
 HEIGHT = 6
 
 describe Bitmap do
-
   subject { Bitmap.new }
 
   before :each do
@@ -105,14 +104,14 @@ describe Bitmap do
   end
 
   describe '#show' do
-    it "show empty matrix" do
+    it 'show empty matrix' do
       expect(subject.show).to eq([%w(O O O O O),
                                   %w(O O O O O), %w(O O O O O),
                                   %w(O O O O O), %w(O O O O O),
                                   %w(O O O O O)])
     end
 
-    it "show complex matrix" do
+    it 'show complex matrix' do
       subject.set_row(5, 1, 1, 'C')
       subject.set_column(1, 1, 5, 'W')
       subject.set_column(3, 3, 6, 'Z')

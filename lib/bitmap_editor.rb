@@ -2,42 +2,50 @@
 require_relative 'bitmap'
 
 class BitmapEditor
-  def run
+  def initialize
     @bitmap = Bitmap.new
+  end
+
+  def run
     @running = true
     puts 'type ? for help'
     while @running
       print '> '
-      input = gets.chomp.split
-      cmd = input.shift
-      begin
-        case cmd
-        when 'I'
-          @bitmap.create_image(*get_params(input, 2))
-        when 'C'
-          check_params input, 0
-          @bitmap.clear_image
-        when 'L'
-          @bitmap.set_pixel(*get_params(input, 3))
-        when 'V'
-          @bitmap.set_column(*get_params(input, 4))
-        when 'H'
-          @bitmap.set_row(*get_params(input, 4))
-        when 'S'
-          check_params input, 0
-          @bitmap.show
-        when '?'
-          check_params input, 0
-          show_help
-        when 'X'
-          check_params input, 0
-          exit_console
-        else
-          puts 'unrecognised command :('
-        end
-      rescue ArgumentError => e
-        puts "invalid command: #{e}"
+      cmd = gets.chomp
+      analyse_command(cmd)
+    end
+  end
+
+  def analyse_command(cmd)
+    input = cmd.split
+    op    = input.shift
+    begin
+      case op
+      when 'I'
+        @bitmap.create_image(*get_params(input, 2))
+      when 'C'
+        check_params input, 0
+        @bitmap.clear_image
+      when 'L'
+        @bitmap.set_pixel(*get_params(input, 3))
+      when 'V'
+        @bitmap.set_column(*get_params(input, 4))
+      when 'H'
+        @bitmap.set_row(*get_params(input, 4))
+      when 'S'
+        check_params input, 0
+        @bitmap.show
+      when '?'
+        check_params input, 0
+        show_help
+      when 'X'
+        check_params input, 0
+        exit_console
+      else
+        puts 'unrecognised command :('
       end
+    rescue ArgumentError => e
+      puts "invalid command: #{e}"
     end
   end
 
@@ -63,7 +71,7 @@ X - Terminate the session"
     check_params(input, param_count)
     # guard cases for painting the image
     c = input.pop if param_count > 2
-    params = input.map &:to_i
+    params = input.map(&:to_i)
     params.push(c) if param_count > 2
     params
   end
