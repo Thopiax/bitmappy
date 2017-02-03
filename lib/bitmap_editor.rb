@@ -13,7 +13,7 @@ class BitmapEditor
       begin
         case cmd
         when 'I'
-          @bitmap = Bitmap.create_image(*get_params(input, 2))
+          @bitmap.create_image(*get_params(input, 2))
         when 'C'
           check_params input, 0
           @bitmap.clear_image

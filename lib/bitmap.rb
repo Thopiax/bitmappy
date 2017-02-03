@@ -9,11 +9,8 @@ class Bitmap
 
   def initialize
     @image = []
-  end
-
-  def initialize(m, n)
-    @image = []
-    create_image(m, n)
+    @width = 0
+    @height = 0
   end
 
   def create_image(m, n)
@@ -66,6 +63,8 @@ class Bitmap
   private
 
   def check_image
-    raise_arg_error 'you need to create an image first!' if @image.empty?
+    if @image.empty? and @width.zero? and @height.zero?
+      raise_arg_error 'you need to create an image first!'
+    end
   end
 end
