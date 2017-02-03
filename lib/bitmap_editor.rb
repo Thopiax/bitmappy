@@ -3,7 +3,7 @@ require_relative 'bitmap'
 
 class BitmapEditor
   def run
-    @image = nil
+    @bitmap = Bitmap.new
     @running = true
     puts 'type ? for help'
     while @running
@@ -13,24 +13,19 @@ class BitmapEditor
       begin
         case cmd
         when 'I'
-          @image = Bitmap.new(*get_params(input, 2))
+          @bitmap = Bitmap.create_image(*get_params(input, 2))
         when 'C'
-          raise_arg_error "you need to create an image first" if @image.nil?
           check_params input, 0
-          @image.clear
+          @bitmap.clear_image
         when 'L'
-          raise_arg_error "you need to create an image first" if @image.nil?
-          @image.set_pixel(*get_params(input, 3))
+          @bitmap.set_pixel(*get_params(input, 3))
         when 'V'
-          raise_arg_error "you need to create an image first" if @image.nil?
-          @image.set_column(*get_params(input, 4))
+          @bitmap.set_column(*get_params(input, 4))
         when 'H'
-          raise_arg_error "you need to create an image first" if @image.nil?
-          @image.set_row(*get_params(input, 4))
+          @bitmap.set_row(*get_params(input, 4))
         when 'S'
           check_params input, 0
-          raise_arg_error "you need to create an image first" if @image.nil? 
-          @image.show
+          @bitmap.show
         when '?'
           check_params input, 0
           show_help

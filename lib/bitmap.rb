@@ -7,31 +7,43 @@ class Bitmap
 
   attr_reader :image, :width, :height
 
+  def initialize
+    @image = []
+  end
+
   def initialize(m, n)
     @image = []
+    create_image(m, n)
+  end
+
+  def create_image(m, n)
     if m.positive? && n.positive?
       @width = m
       @height = n
-      clear
+      clear_image
     else
       raise_arg_error('M and N both need to be positive')
     end
   end
 
-  def clear
+  def clear_image
+    check_image
     @image = Array.new(@height) { Array.new(@width, WHITE_COLOR) }
   end
 
   def get_pixel(x, y)
+    check_image
     @image[get_index(y)][get_index(x)]
   end
 
   def set_pixel(x, y, c)
+    check_image
     raise_arg_error 'invalid color' unless COLOR_RANGE.member?(c)
     @image[get_index(y)][get_index(x)] = c
   end
 
   def set_column(x, v1, v2, c)
+    check_image
     range = v1 > v2 ? v2..v1 : v1..v2
     range.each do |y|
       set_pixel(x, y, c)
@@ -39,6 +51,7 @@ class Bitmap
   end
 
   def set_row(h1, h2, y, c)
+    check_image
     range = h1 > h2 ? h2..h1 : h1..h2
     range.each do |x|
       set_pixel(x, y, c)
@@ -46,10 +59,13 @@ class Bitmap
   end
 
   def show
-    if @image.empty?
-      puts 'you need to create an image first!'
-    else
-      @image.each { |row| puts row.join('') }
-    end
+    check_image
+    @image.each { |row| puts row.join('') }
+  end
+
+  private
+
+  def check_image
+    raise_arg_error 'you need to create an image first!' if @image.empty?
   end
 end
