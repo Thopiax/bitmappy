@@ -46,7 +46,7 @@ describe Bitmap do
     context 'clears a colored board' do
       it do
         @bitmap.set_pixel(1, 1, 'C')
-        @bitmap.clear
+        @bitmap.clear_image
         expect(@bitmap.image).to eq Bitmap.new.create_image(WIDTH, HEIGHT).image
       end
     end
@@ -107,10 +107,10 @@ describe Bitmap do
       @bitmap.set_row(5, 1, 1, 'C')
       @bitmap.set_column(1, 1, 5, 'W')
       @bitmap.set_column(3, 3, 6, 'Z')
-      expect(@bitmap.show).to eq([["W", "C", "C", "C", "C"],
-        ["W", "O", "O", "O", "O"],["W", "O", "Z", "O", "O"],
-        ["W", "O", "Z", "O", "O"],["W", "O", "Z", "O", "O"],
-        ["O", "O", "Z", "O", "O"]])
+      expect(@bitmap.show).to eq([%w(W C C C C),
+                                  %w(W O O O O), %w(W O Z O O),
+                                  %w(W O Z O O), %w(W O Z O O),
+                                  %w(O O Z O O)])
     end
   end
 end

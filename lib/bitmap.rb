@@ -63,7 +63,7 @@ class Bitmap
   private
 
   def check_image
-    if @image.empty? and @width.zero? and @height.zero?
+    if @image.empty? && @width.zero? && @height.zero?
       raise_arg_error 'you need to create an image first!'
     end
   end
