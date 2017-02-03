@@ -66,13 +66,4 @@ H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 
 S - Show the contents of the current image
 X - Terminate the session"
   end
-
-  def get_params(input, param_count)
-    check_params(input, param_count)
-    # guard cases for painting the image
-    c = input.pop if param_count > 2
-    params = input.map(&:to_i)
-    params.push(c) if param_count > 2
-    params
-  end
 end
